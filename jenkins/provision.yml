@@ -7,6 +7,8 @@
         name:
           - wget
           - java-1.8.0-openjdk
+          - maven
+          - git
 
     - name: Download jenkins.repo
       get_url:
@@ -38,12 +40,35 @@
         permanent: true
         state: enabled
 
+    - name: Is exist Jenkins init file
+      stat:
+        path: /var/lib/jenkins/secrets/initialAdminPassword
+      register: isExistInitFile
+
     - name: Get init password Jenkins
       shell: cat /var/lib/jenkins/secrets/initialAdminPassword
       changed_when: false
-      register: result
+      register: passwd
+      when: isExistInitFile.stat.exists
+
+    - name: Get java command path
+      shell: readlink -f $(which java)
+      changed_when: false
+      register: javapath
+
+    - name: Get mvn home directory
+      shell: mvn -v | grep 'Maven home'
+      changed_when: false
+      register: mvnpath
 
     - name: Print init password Jenkins
       debug:
-        var: result.stdout
+        var: passwd.stdout
 
+    - name: Print java command path
+      debug:
+        var: javapath.stdout
+
+    - name: Print mvn home directory
+      debug:
+        var: mvnpath.stdout
