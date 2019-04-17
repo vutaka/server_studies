@@ -19,6 +19,19 @@ windowsでdockerを動かすのがめんどくさかったので。。。
 
 ここにあるVagrantfileは `http_proxy` という環境変数からプロキシを設定するようにしているため、 プロキシを利用する場合必ず `http_proxy` を設定すること
 
+## windowsで動かすときの注意
+
+### `Encoding::InvalidByteSequenceError` とかエラーが出る。
+
+コマンドプロンプトかPSの文字コードをUTF-8変更した上で実行する。
+
+* `chcp 65001`
+
+### `Encoding::CompatibilityError` とかエラーが出る。
+
+Vagrantfileを置いているパスに日本語が含まれているはずなので全て英語にする。
+
+
 # 基本的にやってること
 
 * 使っているOSはCentOS7
