@@ -1,0 +1,14 @@
+- name: Install apache
+  become: true
+  hosts: all
+  tasks:
+    - name: Install apache
+      yum:
+        name:
+          - httpd
+
+    - name: Start & Enable apache
+      systemd:
+        name: httpd
+        state: started
+        enabled: true
