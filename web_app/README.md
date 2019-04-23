@@ -32,5 +32,19 @@ apache + tomcatの構成ならHTTPでなくAJPで通信した方が良いかと�
 
 
 # 参考
+## Apacheの参考
+### プロキシ（リバースプロキシ）関連
+* http://webos-goodies.jp/archives/51261261.html
+* https://httpd.apache.org/docs/2.4/ja/mod/mod_proxy.html
+### セクション関連
+* https://httpd.apache.org/docs/2.4/ja/sections.html
+
 ## Tomcatの参考
 * https://qiita.com/msakamoto_sf/items/ef34922548275dd31014
+
+## CentOS7のサービスについて
+* https://www.server-memo.net/centos-settings/centos7/service-start.html
+
+## SELinuxについて
+* https://blog.fenrir-inc.com/jp/2016/09/selinux.html
+* https://docs.ansible.com/ansible/latest/modules/seboolean_module.html

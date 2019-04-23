@@ -6,6 +6,19 @@
       yum:
         name:
           - httpd
+          - libsemanage-python
+
+    - name: Set bool for httpd_proxy
+      seboolean:
+        name: httpd_can_network_connect
+        state: yes
+        persistent: yes
+
+    - name: Copy apache conf for ap
+      copy:
+        src: /vagrant/web/resources/ap_proxy.conf
+        dest: /etc/httpd/conf.d/
+        mode: 0644
 
     - name: Start & Enable apache
       systemd:
