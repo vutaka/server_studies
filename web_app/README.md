@@ -48,3 +48,10 @@ apache + tomcatの構成ならHTTPでなくAJPで通信した方が良いかと�
 ## SELinuxについて
 * https://blog.fenrir-inc.com/jp/2016/09/selinux.html
 * https://docs.ansible.com/ansible/latest/modules/seboolean_module.html
+
+## PosgreSQLの参考
+### 初期構築
+* http://serverarekore.blogspot.com/2018/09/ansibleapache-nifipostgresql10centos75.html
+* https://qiita.com/LowSE01/items/84af05449f96dedd0edc
+### 認証設定
+* https://www.postgresql.jp/document/10/html/auth-pg-hba-conf.html
