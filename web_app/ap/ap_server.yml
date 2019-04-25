@@ -27,6 +27,7 @@
           - postgresql10-libs
           - postgresql10
           - postgresql10-server
+          - python-psycopg2
 
     - name: run initdb
       shell: /usr/pgsql-10/bin/postgresql-10-setup initdb
@@ -45,6 +46,22 @@
         daemon-reload: true
         state: started
         enabled: true
+
+    - name: create a database
+      postgresql_db:
+        name: example
+        login_user: postgres
+        encoding: UTF-8
+        template: template0
+
+    - name: Create db user in postgre
+      postgresql_user:
+        name: nablarch
+        db: example
+        password: password123
+    
+    - name: Create table
+      shell: psql -f /vagrant/ap/resources/create.sql -U postgres -d example
 
     - name: Start & Enable tomcat
       systemd:

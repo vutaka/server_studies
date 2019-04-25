@@ -36,3 +36,7 @@ Vagrantfileを置いているパスに日本語が含まれているはずなの
 
 * 使っているOSはCentOS7
 * プロビジョナはシェルを書くのが辛いのでansible_local
+
+# 参考
+## ansible
+* https://docs.ansible.com/ansible/latest/modules/modules_by_category.html
