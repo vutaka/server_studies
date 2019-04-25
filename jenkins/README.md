@@ -30,6 +30,13 @@ Jenkinsを好きに触って好きに捨てれるようにした場所
 * 作ったユーザでログイン
 * Jenkinsの管理 -> Global Tool Configuration からJDKとMavenのhomeを入力する
 
+# プラグインの参考
+
+|プラグイン名|用途|備考|
+|-|-|-|
+|HTML Publisher plugin|ビルド結果にHTMLレポートへのリンクを表示する際に||
+|Warnings Next Generation Plugin|Checkstyle/SpotBugsの解析結果を表示する|昔のcheckstyle・findbugsのプラグインがdeprecatedになったためこちらを使う|
+|Jacoco|コードカバレッジを表示||
 
 # 参考にしたところ
 
