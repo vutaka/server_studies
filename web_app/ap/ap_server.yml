@@ -59,7 +59,12 @@
         name: nablarch
         db: example
         password: password123
-    
+
+    - name: Create scheme
+      postgresql_schema:
+        name: main
+        database: example
+
     - name: Create table
       shell: psql -f /vagrant/ap/resources/create.sql -U postgres -d example
 
