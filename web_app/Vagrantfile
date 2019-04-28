@@ -5,16 +5,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "centos/7"
 
-  # プロキシ設定
-  if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['http_proxy']
-      puts '- Proxy Setting ----------------------------------'
-      puts ENV['http_proxy']
-      config.proxy.http     = ENV['http_proxy']
-      config.proxy.https    = ENV['http_proxy']
-      config.proxy.no_proxy = "localhost,127.0.0.1"
-      puts '--------------------------------------------------'
-  end
-
   # webサーバ
   config.vm.define :web do | web |
     web.vm.hostname = "web"
@@ -23,10 +13,21 @@ Vagrant.configure("2") do |config|
     # ポートフォワーディングの設定
     web.vm.network "forwarded_port", guest: 80, host: 30080
 
+    # プロキシ設定
+    if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['http_proxy']
+      puts '- Proxy Setting ----------------------------------'
+      puts ENV['http_proxy']
+      web.proxy.http     = ENV['http_proxy']
+      web.proxy.https    = ENV['http_proxy']
+      web.proxy.no_proxy = "localhost,127.0.0.1"
+      puts '--------------------------------------------------'
+    end
+    
     # シェル書くのが辛いのでプロビジョンはansibleローカル
     web.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "web/web_server.yml"
     end
+
   end
 
   # apサーバ
@@ -37,10 +38,21 @@ Vagrant.configure("2") do |config|
     # ポートフォワーディングの設定
     ap.vm.network "forwarded_port", guest: 8080, host: 38080
 
+    # プロキシ設定
+    if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['http_proxy']
+      puts '- Proxy Setting ----------------------------------'
+      puts ENV['http_proxy']
+      ap.proxy.http     = ENV['http_proxy']
+      ap.proxy.https    = ENV['http_proxy']
+      ap.proxy.no_proxy = "localhost,127.0.0.1"
+      puts '--------------------------------------------------'
+    end
+
     # シェル書くのが辛いのでプロビジョンはansibleローカル
     ap.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "ap/ap_server.yml"
     end
+
   end
 
 end
