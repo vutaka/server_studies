@@ -11,10 +11,18 @@
           - tomcat-admin-webapps
           - wget
 
+    - name: Regist clean target
+      find:
+        paths: /usr/share/tomcat/webapps
+        file_type: any
+        depth: 1
+      register: somethins_to_delete
+
     - name: Clean example
       file:
-        path: /usr/share/tomcat/webapps/*
+        path: "{{ item.path }}"
         state: absent
+      with_items: "{{ somethins_to_delete.files }}"
 
     - name: Deploy war
       copy:
