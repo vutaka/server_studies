@@ -1,0 +1,46 @@
+- name: Install tomcat
+  become: true
+  hosts: all
+  tasks:
+    - name: Install yum
+      yum:
+        name:
+          - java-1.8.0-openjdk
+          - tomcat
+          - tomcat-webapps
+          - tomcat-admin-webapps
+          - wget
+
+    - name: Clean example
+      file:
+        path: /usr/share/tomcat/webapps/*
+        state: absent
+
+    - name: Deploy war
+      copy:
+        src: /vagrant/ap/resources/exam-app.war
+        dest: /usr/share/tomcat/webapps/
+        mode: 0644
+
+    - name: Start & Enable tomcat
+      systemd:
+        name: tomcat
+        daemon-reload: true
+        state: started
+        enabled: true
+
+    - name: Wait for listened port
+      wait_for:
+        port: 8080
+
+    - name: Copy firewalld service xml
+      copy:
+        src: /vagrant/ap/resources/tomcat.xml
+        dest: /usr/lib/firewalld/services/
+        mode: 0644
+
+    - name: Allow access tomcat
+      firewalld:
+        service: tomcat
+        permanent: true
+        state: enabled
