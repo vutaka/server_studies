@@ -30,11 +30,17 @@
       args:
         creates: /var/lib/pgsql/10/data/*
 
-    - name: change trust default auth for local
+    - name: change auth method for local
       replace:
         path: /var/lib/pgsql/10/data/pg_hba.conf
         regexp: '^(local +all +all +)peer'
         replace: '\1trust'
+
+    - name: change auth method for IPv4 local
+      replace:
+        path: /var/lib/pgsql/10/data/pg_hba.conf
+        regexp: '^(host +all +all +127\.0\.0\.1/32 +)ident'
+        replace: '\1password'
 
     - name: Start & Enable Postgres
       systemd:
@@ -58,8 +64,15 @@
 
     - name: Create scheme
       postgresql_schema:
-        name: main
+        name: nablarch
+        owner: nablarch
         database: example
+
+    - name: drop public scheme
+      postgresql_schema:
+        name: public
+        database: example
+        state: absent
 
     - name: Create table
       shell: psql -f /vagrant/ap/resources/create.sql -U postgres -d example

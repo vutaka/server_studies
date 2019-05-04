@@ -10,6 +10,7 @@
           - tomcat-webapps
           - tomcat-admin-webapps
           - wget
+          - libsemanage-python
 
     - name: Regist clean target
       find:
@@ -23,6 +24,36 @@
         path: "{{ item.path }}"
         state: absent
       with_items: "{{ somethins_to_delete.files }}"
+
+    - name: Make app dir
+      file:
+        path: /var/nablarch/{{ item.name }}
+        state: directory
+        owner: tomcat
+        group: tomcat
+        mode: 644
+      with_items:
+        - { name: 'output' }
+        - { name: 'format' }
+
+    - name: Download Postgres jdbc
+      get_url:
+        url: https://jdbc.postgresql.org/download/postgresql-42.2.5.jar
+        dest: /usr/share/tomcat/lib/
+
+    - name: Copy tomcat context xml for jndi
+      copy:
+        src: /vagrant/ap/resources/context.xml
+        dest: /usr/share/tomcat/conf/
+        owner: root
+        group: tomcat
+        mode: 0644
+
+    - name: Set bool for tomcat connect db
+      seboolean:
+        name: tomcat_can_network_connect_db
+        state: yes
+        persistent: yes
 
     - name: Deploy war
       copy:

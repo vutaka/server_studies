@@ -1,0 +1,29 @@
+<Context>
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+
+    <!-- Uncomment this to enable Comet connection tacking (provides events
+         on session expiration as well as webapp lifecycle) -->
+    <!--
+    <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
+    -->
+    <Resource
+      name="datasource"
+      auth="Container"
+      type="javax.sql.DataSource"
+      driverClassName="org.postgresql.Driver"
+      url="jdbc:postgresql://127.0.0.1:5432/example"
+      factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+      username="nablarch"
+      password="password123"
+      maxTotal="20"
+      maxIdle="10"
+      maxWaitMillis="-1"/>
+
+</Context>
