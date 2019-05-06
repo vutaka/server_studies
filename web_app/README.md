@@ -44,7 +44,7 @@ apache + tomcatの構成ならHTTPでなくAJPで通信した方が良いかと�
 1. feature-trainingブランチをチェックアウトする
     - `git checkout -b feature-training origin/feature-traing`
 2. `vagrant up` する
-3. ポートフォワーディングとリバースプロキシの設定のみされるので以下の資料を元に練習する。
+3. ポートフォワーディングとプロキシの設定のみされるので以下の資料を元に練習する。
     - [webサーバ(apache)](./docs/apache_handson.md)
     - [APサーバ(tomcat)](./docs/tomcat_handson.md)
     - [DBサーバ(PostgreSQL)](./docs/postgresql_handson.md)
