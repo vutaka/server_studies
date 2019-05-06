@@ -4,11 +4,15 @@ Webサーバ - APサーバ - DBサーバを学ぶ場所
 
 よくあるwebアプリケーションの3層構造をなんとなく実現できるようになることを目標にする。
 
+`vagrant up` したら `http://localhost:30080/exam-app` で接続確認する。
+
 # 環境構成
 
 サーバはWebサーバ(apache)とAPサーバ(tomcat + PostgresSQL)の２台
 
 想定としてWebサーバはDMZに置かれるがAPサーバはLAN(internal)に置かれるだろうという想定のため今回はAPサーバにDBを同居させた
+
+APサーバのポートフォワーディングの設定はtomcatの動作確認用。
 
 |役割|host名|IPアドレス|確認用ポートフォワーディングの設定|
 |-|-|-|-|
@@ -20,16 +24,30 @@ Webサーバ - APサーバ - DBサーバを学ぶ場所
 * プライベートIPアドレス: `192.168.33.10`
 * 解放するポートは22(ssh)と80(http)のみ（ファイアウォールで許可するもの）
 * `/example/action/*` のリクエストをリバースプロキシでAPサーバへ送る(apacheにリバースプロキシの設定を入れる)
-* `/example/css/*` と `/example/js/*` のリクエストはWebサーバのリソースを返却する
+* `/example/css/*` と `/example/js/*` のリクエストはWebサーバのリソースを返却する(予定)
+* SELinuxは無効にするのではなくのapacheからネットワークへの接続のみ許可
 
 ## APサーバ
 
 * プライベートIPアドレス: `192.168.33.11`
 * 解放するポートは22(ssh)と8080(http)のみ（ファイアウォールで許可するがプライベートネットワークからの接続のみ受け付ける）
 * tomcatからDBへの接続はtomcatに設定のjndiで
+* tomcatの起動パラメータで言語を日本語に設定
+* DBサーバはPostgreSQL
+* アプリ用のユーザ、同名のスキーマを作成し、テーブルへの閲覧・登録・更新・削除権限を与えている
+* SELinuxは無効にするのではなくのtomcatからDBへの接続のみ許可
 
 apache + tomcatの構成ならHTTPでなくAJPで通信した方が良いかと思ったが接続確認をwebサーバを介さずに行いたかった。
 
+# 練習してみる
+
+1. feature-trainingブランチをチェックアウトする
+    - `git checkout -b feature-training origin/feature-traing`
+2. `vagrant up` する
+3. ポートフォワーディングとリバースプロキシの設定のみされるので以下の資料を元に練習する。
+    - [webサーバ(apache)](./docs/apache_handson.md)
+    - [APサーバ(tomcat)](./docs/tomcat_handson.md)
+    - [DBサーバ(PostgreSQL)](./docs/postgresql_handson.md)
 
 # 参考
 ## Apacheの参考
@@ -50,6 +68,7 @@ apache + tomcatの構成ならHTTPでなくAJPで通信した方が良いかと�
 ## CentOS7参考
 ### サービスについて
 * https://www.server-memo.net/centos-settings/centos7/service-start.html
+* https://qiita.com/ao_log/items/78e6f620ec07cbac47a1
 
 ### SELinuxについて
 * https://blog.fenrir-inc.com/jp/2016/09/selinux.html

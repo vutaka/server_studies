@@ -31,3 +31,4 @@
         name: httpd
         state: started
         enabled: true
+        daemon_reload: yes
