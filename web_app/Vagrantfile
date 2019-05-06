@@ -23,10 +23,10 @@ Vagrant.configure("2") do |config|
       puts '--------------------------------------------------'
     end
     
-    # シェル書くのが辛いのでプロビジョンはansibleローカル
-    web.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "web/web_server.yml"
-    end
+    # トレーニングではプロビジョンしない
+    # web.vm.provision "ansible_local" do |ansible|
+    #   ansible.playbook = "web/web_server.yml"
+    # end
 
   end
 
@@ -49,9 +49,9 @@ Vagrant.configure("2") do |config|
     end
 
     # シェル書くのが辛いのでプロビジョンはansibleローカル
-    ap.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "ap/ap_server.yml"
-    end
+    # ap.vm.provision "ansible_local" do |ansible|
+    #   ansible.playbook = "ap/ap_server.yml"
+    # end
 
   end
 
