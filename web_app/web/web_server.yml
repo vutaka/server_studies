@@ -2,6 +2,12 @@
   become: true
   hosts: all
   tasks:
+    - name: Set locale
+      shell: localectl set-locale LANG=ja_JP.UTF-8
+
+    - name: Set timezone
+      shell: timedatectl set-timezone Asia/Tokyo
+
     - name: Install apache
       yum:
         name:

@@ -76,3 +76,13 @@
 
     - name: Create table
       shell: psql -f /vagrant/ap/resources/create.sql -U postgres -d example
+
+    - name: Grant
+      postgresql_privs:
+        database: example
+        type: table
+        schema: nablarch
+        roles: nablarch
+        objs: ALL_IN_SCHEMA
+        privs: SELECT,INSERT,UPDATE,DELETE
+        grant_option: yes

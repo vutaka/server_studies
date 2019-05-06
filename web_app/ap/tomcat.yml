@@ -2,6 +2,12 @@
   become: true
   hosts: all
   tasks:
+    - name: Set locale
+      shell: localectl set-locale LANG=ja_JP.UTF-8
+
+    - name: Set timezone
+      shell: timedatectl set-timezone Asia/Tokyo
+
     - name: Install yum
       yum:
         name:
@@ -31,7 +37,7 @@
         state: directory
         owner: tomcat
         group: tomcat
-        mode: 644
+        mode: 0755
       with_items:
         - { name: 'output' }
         - { name: 'format' }
@@ -45,9 +51,17 @@
       copy:
         src: /vagrant/ap/resources/context.xml
         dest: /usr/share/tomcat/conf/
-        owner: root
+        owner: tomcat
         group: tomcat
         mode: 0644
+
+    - name: Copy tomcat conf
+      copy:
+        src: /vagrant/ap/resources/lang.conf
+        dest: /usr/share/tomcat/conf/conf.d/
+        owner: tomcat
+        group: tomcat
+        mode: 0774
 
     - name: Set bool for tomcat connect db
       seboolean:

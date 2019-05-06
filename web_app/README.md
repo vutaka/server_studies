@@ -40,18 +40,30 @@ apache + tomcatの構成ならHTTPでなくAJPで通信した方が良いかと�
 * https://httpd.apache.org/docs/2.4/ja/sections.html
 
 ## Tomcatの参考
+### yumのパッケージ関連
 * https://qiita.com/msakamoto_sf/items/ef34922548275dd31014
+### JNDI関連
+* https://tomcat.apache.org/tomcat-8.0-doc/jndi-datasource-examples-howto.html
+* https://qiita.com/nekijak/items/f00c615f0e84bc647c02
+* https://www.infoscoop.org/blogjp/2014/12/04/no-basicdatasourcefactory/
 
-## CentOS7のサービスについて
+## CentOS7参考
+### サービスについて
 * https://www.server-memo.net/centos-settings/centos7/service-start.html
 
-## SELinuxについて
+### SELinuxについて
 * https://blog.fenrir-inc.com/jp/2016/09/selinux.html
 * https://docs.ansible.com/ansible/latest/modules/seboolean_module.html
+* https://qiita.com/yunano/items/857ab36faa0d695573dd
 
 ## PosgreSQLの参考
 ### 初期構築
 * http://serverarekore.blogspot.com/2018/09/ansibleapache-nifipostgresql10centos75.html
 * https://qiita.com/LowSE01/items/84af05449f96dedd0edc
+* https://qiita.com/ponsuke0531/items/12bf73640ee54c238e7e
 ### 認証設定
 * https://www.postgresql.jp/document/10/html/auth-pg-hba-conf.html
+* https://qiita.com/k1LoW/items/7d3ed522286fba421de3
+### コマンド
+* https://dev.classmethod.jp/server-side/db/postgresql-organize-command/
+* https://qiita.com/mm36/items/1801573a478cb2865242
