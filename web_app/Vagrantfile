@@ -37,7 +37,8 @@ Vagrant.configure("2") do |config|
     ap.vm.network :private_network, ip: "192.168.33.11", virtualbox__intnet: "intnet"
 
     # ポートフォワーディングの設定
-    ap.vm.network "forwarded_port", guest: 8080, host: 38080
+    ap.vm.network "forwarded_port", guest: 8080, host: 48080
+    ap.vm.network "forwarded_port", guest: 22, host: 40022
 
     # プロキシ設定
     if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['http_proxy']
