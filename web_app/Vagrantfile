@@ -12,6 +12,7 @@ Vagrant.configure("2") do |config|
 
     # ポートフォワーディングの設定
     web.vm.network "forwarded_port", guest: 80, host: 30080
+    web.vm.network "forwarded_port", guest: 22, host: 30022
 
     # プロキシ設定
     if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['http_proxy']
