@@ -59,7 +59,7 @@
 ### 3.リバースプロキシの設定を行う
 * Apacheのプロキシモジュールが読み込まれていることを確認する。
   ```
-  $ cd /etc/httpd/
+  $ cd /etc/httpd/conf.modules.d/
   $ grep mod_proxy *
   ```
   今回は `mod_proxy.so` と `mod_proxy_http.so` がコメントアウトされていないことを確認できれば良い
