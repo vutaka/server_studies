@@ -1,4 +1,4 @@
-- name: Install LostgreSQL
+- name: Install PostgreSQL
   become: true
   hosts: all
   tasks:
