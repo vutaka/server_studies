@@ -49,7 +49,7 @@
   今回の対象は `httpd_can_network_connect` のみ
 * 許可設定をする
   ```
-  $ sudo setsebool httpd_can_network_connect on
+  $ sudo setsebool -P httpd_can_network_connect on
   ```
 * 再度確認する
   ```
